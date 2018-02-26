@@ -10,7 +10,7 @@
         <div class="col-md-12">
 
             <section class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-6">
                     <section class="portlet light">
                         <div class="portlet-title">
                             <section class="caption">

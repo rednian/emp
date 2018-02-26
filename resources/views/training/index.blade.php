@@ -5,7 +5,7 @@
 @section('content')
     <div class="page-head">
         <div class="page-title">
-            <h1>Blank Page <small>blank page</small></h1>
+            <h1>Training <small>Information</small></h1>
         </div>
 
     </div>
@@ -17,8 +17,8 @@
                     <section class="portlet light">
                         <div class="portlet-title">
                             <section class="caption">
-                                <i class="fa fa-plus font-green-sharp"></i>
-                                <span class="caption-subject font-green-sharp bold">title here</span>
+                                <i class=" font-green-sharp"></i>
+                                <span class="caption-subject font-green-sharp bold">Training List</span>
                             </section>
                         </div>
                         <div class="portlet-body">

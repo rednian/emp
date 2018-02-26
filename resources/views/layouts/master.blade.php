@@ -459,24 +459,7 @@
                     <a href="javascript:;"><i class="icon-rocket"></i><span class="title">Training</span><span class="arrow open"></span></a>
                     <ul class="sub-menu">
                         <li><a href="{{route('training.create')}}"><i class="icon-home"></i><span class="badge badge-warning">new</span>Add Training</a></li>
-                        <li>
-                            <a href="{{route('training.index')}}"><i class="icon-home"></i>Training List</a></li>
-                        <li>
-                            <a href="layout_sidebar_closed.html">
-                                Sidebar Closed Page</a>
-                        </li>
-                        <li class="active">
-                            <a href="layout_blank_page.html">
-                                Blank Page</a>
-                        </li>
-                        <li>
-                            <a href="layout_boxed_page.html">
-                                Boxed Page</a>
-                        </li>
-                        <li>
-                            <a href="layout_language_bar.html">
-                                Language Switch Bar</a>
-                        </li>
+                        <li><a href="{{route('training.index')}}"><i class="icon-home"></i>Training List</a></li>
                     </ul>
                 </li>
 
