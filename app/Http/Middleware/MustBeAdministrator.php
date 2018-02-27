@@ -20,8 +20,8 @@ class MustBeAdministrator
             return $next($request);
         }
 
-        abort(404,'no way');
-//        return redirect()->route('employee.index');
+        // abort(404,'no way');
+       return redirect()->route('employee.index');
 
     }
 }
