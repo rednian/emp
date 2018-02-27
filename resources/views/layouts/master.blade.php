@@ -377,8 +377,7 @@
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-user dropdown-dark">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-						<span class="username username-hide-on-mobile">
-						Nick </span>
+						<span class="username username-hide-on-mobile">{{ucwords(Auth::user()->firstname)}}</span>
                             <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                             <img alt="" class="img-circle" src="../../assets/admin/layout4/img/avatar9.jpg"/>
                         </a>
@@ -410,7 +409,7 @@
                                     <i class="icon-lock"></i> Lock Screen </a>
                             </li>
                             <li>
-                                <a href="login.html">
+                                <a href="{{route('logout')}}">
                                     <i class="icon-key"></i> Log Out </a>
                             </li>
                         </ul>
@@ -441,25 +440,29 @@
             <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
             <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
             <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-            <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                <li class="start ">
-                    <a href="index.html">
+
+            <?php  $active = \Request::segment(1); ?>
+            <?php  $sub_menu = \Request::segment(2);  ?>
+
+            <ul class="page-sidebar-menu page-sidebar-menu-closed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <li class="start {{$link = $active == '' ? 'active open':''}}">
+                    <a href="{{route('dashboard')}}">
                         <i class="icon-home"></i>
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
-                <li>
+                <li class="{{$link = $active == 'employee' ? 'active open':''}}">
                     <a href="javascript:;"><i class="icon-basket"></i><span class="title">Employee</span><span class="arrow "></span></a>
                     <ul class="sub-menu">
-                        <li><a href="{{route('employee.create')}}"><i class="icon-home"></i><span class="badge badge-warning">new</span>Add Employee</a></li>
-                        <li><a href="{{route('employee.index')}}"><i class="icon-basket"></i>Employee List</a></li>
+                        <li class="{{$link = $sub_menu == 'create' ? 'active':''}}"><a href="{{route('employee.create')}}"><i class="icon-home"></i><span class="badge badge-warning">new</span>Add Employee</a></li>
+                        <li class="{{$link = $sub_menu == '' ? 'active':''}}"><a href="{{route('employee.index')}}"><i class="icon-basket"></i>Employee List</a></li>
                     </ul>
                 </li>
-                <li class="active open">
+                <li class="{{$link = $active == 'training' ? 'active open':''}}">
                     <a href="javascript:;"><i class="icon-rocket"></i><span class="title">Training</span><span class="arrow open"></span></a>
                     <ul class="sub-menu">
-                        <li><a href="{{route('training.create')}}"><i class="icon-home"></i><span class="badge badge-warning">new</span>Add Training</a></li>
-                        <li><a href="{{route('training.index')}}"><i class="icon-home"></i>Training List</a></li>
+                        <li  class="{{$link = $sub_menu == 'create' ? 'active':''}}"><a href="{{route('training.create')}}"><i class="icon-home"></i><span class="badge badge-warning">new</span>Add Training</a></li>
+                        <li class="{{$link = $sub_menu == '' ? 'active':''}}"><a href="{{route('training.index')}}"><i class="icon-home"></i>Training List</a></li>
                     </ul>
                 </li>
 
@@ -504,7 +507,7 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
     <div class="page-footer-inner">
-        2014 &copy; Metronic by keenthemes.
+        {{date('Y')}} &copy; Metronic by keenthemes.
     </div>
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>

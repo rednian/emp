@@ -11,9 +11,22 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('training','TrainingController');
-Route::resource('employee','EmployeeController');
+Route::get('/login','LoginController@showLogin')->name('login');
+Route::post('/login','LoginController@postLogin')->name('login.submit');
+
+
+
+Route::group(['middleware'=>'auth'],function(){
+
+    Route::get('/','DashboardController@index')->name('dashboard');
+    Route::resource('/training','TrainingController');
+    Route::resource('/employee','EmployeeController');
+    Route::get('/logout','LoginController@logout')->name('logout');
+
+});

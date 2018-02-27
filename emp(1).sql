@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2018 at 10:00 AM
+-- Generation Time: Feb 27, 2018 at 10:00 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.6
 
@@ -36,16 +36,17 @@ CREATE TABLE `employee` (
   `role` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `image` varchar(255) NOT NULL
+  `image` varchar(255) NOT NULL,
+  `remember_token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`emp_id`, `firstname`, `middlename`, `password`, `username`, `lastname`, `role`, `created_at`, `updated_at`, `image`) VALUES
-(1, 'admin', 'admin', '$2y$10$EBDpEA1qpYdpqrPJjzkgWem/pHbP4stwL3Y/W/16nZvg9avwj.D7W', 'admin', 'admin', '', '2018-02-26 07:31:23', '2018-02-26 07:31:23', 'default/user.png'),
-(2, 'admin', 'admin', '$2y$10$hnuNaDEvTGk6umvlaMiA.uT2zIpSyJ8RV0rEdxNbgzEiABskYloAy', 'adadm', 'admin', NULL, '2018-02-26 07:30:58', '2018-02-26 07:30:58', 'default/user.png');
+INSERT INTO `employee` (`emp_id`, `firstname`, `middlename`, `password`, `username`, `lastname`, `role`, `created_at`, `updated_at`, `image`, `remember_token`) VALUES
+(1, 'admin', 'admin', '$2y$10$EBDpEA1qpYdpqrPJjzkgWem/pHbP4stwL3Y/W/16nZvg9avwj.D7W', 'admin', 'admin', 'user', '2018-02-27 08:55:44', '2018-02-27 08:55:44', 'default/user.png', 'bAxoWwF0qKz77iXXgVQAmva0Zgetc0DJxbsA6JUpCwaHqRv7iRvsAwIn6eQl'),
+(2, 'admin', 'admin', '$2y$10$hnuNaDEvTGk6umvlaMiA.uT2zIpSyJ8RV0rEdxNbgzEiABskYloAy', 'adadm', 'admin', 'user', '2018-02-27 06:34:04', '2018-02-27 06:34:04', 'default/user.png', '');
 
 -- --------------------------------------------------------
 

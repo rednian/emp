@@ -39,6 +39,7 @@
                                             <td>{{$i+1}}</td>
                                             <td>{{ucwords($employee->firstname).' '.ucwords($employee->middlename).' '.ucwords($employee->lastname)}}</td>
                                             <td>{{strtolower($employee->username)}}</td>
+                                            <td>{{strtolower($employee->username)}}</td>
                                         </tr>
                                         <?php $i++; ?>
                                         @endif
