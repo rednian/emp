@@ -379,7 +379,8 @@
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<span class="username username-hide-on-mobile">{{ucwords(Auth::user()->firstname)}}</span>
                             <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                            <img alt="" class="img-circle" src="../../assets/admin/layout4/img/avatar9.jpg"/>
+                            {{--{{dd(Auth::user()->image)}}--}}
+                            <img alt="" class="img-circle" src="{{asset('/storage/'. $image = empty(Auth::user()->image) ? 'default/user.png' : Auth::user()->image)}}"/>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
