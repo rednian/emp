@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Excel;
 use App\Employee;
+use App\EmployeeTraining;
+use App\Training;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,16 +22,40 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-       $employees = Employee::all();
+        $employees = Employee::all();
+        $trainings = Training::all();
 
-        return view('employee.index', compact('employees'));
+        return view('employee.index', compact(['employees','trainings']));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function training(Request $request)
+    {
+
+            foreach($request->t_id as $d){
+                $e = new EmployeeTraining();
+                $e->emp_id = $request->emp_id;
+                $e->t_id = $d;
+                $e->save();
+            }
+        return redirect()->back()->with('success','Training Successfully Added!');
+    }
+
+
+    public function  upload(Request $request)
+    {
+        echo '<pre>';
+        $excel = Excel::load($request->file('file'), function($reader){
+            $reader->each(function($sheet){
+
+                print_r($sheet->toArray());
+
+            });
+        });
+
+    }
+
+
     public function create()
     {
         return view('employee.add-employee');
@@ -70,7 +97,11 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        $emp = Employee::find(2);
+        dd($emp->trainings);
+        $employee = Employee::find($id);
+
+        return view('employee.show', compact('employee'));
     }
 
     /**

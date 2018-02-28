@@ -25,6 +25,8 @@ Route::post('/login','LoginController@postLogin')->name('login.submit');
 Route::group(['middleware'=>'auth'],function(){
 
     Route::get('/','DashboardController@index')->name('dashboard');
+    Route::post('employee/upload','EmployeeController@upload')->name('employee.upload');
+    Route::post('employee/training','EmployeeController@training')->name('employee.training');
     Route::resource('/training','TrainingController');
     Route::resource('/employee','EmployeeController');
     Route::get('/logout','LoginController@logout')->name('logout');
