@@ -31,13 +31,16 @@ class EmployeeController extends Controller
 
     public function training(Request $request)
     {
+        $employee = Employee::find($request->emp_id);
+        $employee->trainings()->attach([$request->t_id]);
 
-            foreach($request->t_id as $d){
-                $e = new EmployeeTraining();
-                $e->emp_id = $request->emp_id;
-                $e->t_id = $d;
-                $e->save();
-            }
+
+//            foreach($request->t_id as $d){
+//                $e = new EmployeeTraining();
+//                $e->emp_id = $request->emp_id;
+//                $e->t_id = $d;
+//                $e->save();
+//            }
         return redirect()->back()->with('success','Training Successfully Added!');
     }
 
@@ -97,8 +100,11 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        $emp = Employee::find(2);
-        dd($emp->trainings);
+        $employee_training = Employee::find($id);
+//        dd($employee_training->trainings()->sync($id));
+//        foreach($employee_training->trainings as $employee){
+//            dd($employee->firstname);
+//        }
         $employee = Employee::find($id);
 
         return view('employee.show', compact('employee'));
