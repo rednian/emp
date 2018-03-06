@@ -48,15 +48,16 @@ class EmployeeController extends Controller
 
     public function  upload(Request $request)
     {
-        echo '<pre>';
-        $excel = Excel::load($request->file('log'), function($reader){
-            $reader->each(function($sheet){
 
-                print_r($sheet->toArray());
+        $this->validate($request, [
+            'log' => 'required|file',
+        ]);
 
-            });
-        });
+        $collection = Excel::load($request->file('log'), function($reader) {})->all()->toArray();
 
+        foreach ($collection as $row){
+           print_r($row[2]);
+        }
     }
 
 
