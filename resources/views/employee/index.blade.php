@@ -43,7 +43,10 @@
                                             <td>{{ucwords($employee->firstname).' '.ucwords($employee->middlename).' '.ucwords($employee->lastname)}}</td>
                                             <td>{{strtolower($employee->username)}}</td>
                                             <td class="col-xs-3">
-                                                <a href="{{$employee->emp_id}}" data-toggle="modal" id="btn-training" data-target="#modal-employee-training" class="btn btn-link"><span class="icon-upload"></span></a>
+                                                <a href="{{$employee->emp_id}}" data-toggle="modal" id="btn-training" data-target="#modal-employee-training" class="btn btn-link"><span
+                                                            class="icon-plus"></span> training</a>
+                                                <a href="{{$employee->emp_id}}" data-toggle="modal" id="btn-log" data-target="#modal-employee-log" class="btn btn-link"><span
+                                                            class="icon-plus"></span> logs</a>
                                                 <a href="{{route('employee.show',$employee)}}" class="btn btn-link"><span class="icon-folder-open"></span></a>
 
                                                 <form action="{{route('employee.destroy',$employee)}}" method="post" style="display: inline;">
@@ -66,6 +69,39 @@
             </section>
         </div>
     </div>
+    {{--Logs Modal--}}
+    <div class="modal fade" id="modal-employee-log">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Employee Logs</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('employee.upload')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <label for="" class="control-label col-sm-4">Log Date <code>*</code></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label col-sm-4">Logs <code>*</code></label>
+                            <div class="col-sm-8">
+                                <input type="file" class="form-control" name="log">
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Upload Logs</button>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     {{--Training modal--}}
     <div class="modal fade" id="modal-employee-training" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

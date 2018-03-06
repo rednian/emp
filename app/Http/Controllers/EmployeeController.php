@@ -7,6 +7,7 @@ use App\Employee;
 use App\EmployeeTraining;
 use App\Training;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
@@ -48,7 +49,7 @@ class EmployeeController extends Controller
     public function  upload(Request $request)
     {
         echo '<pre>';
-        $excel = Excel::load($request->file('file'), function($reader){
+        $excel = Excel::load($request->file('log'), function($reader){
             $reader->each(function($sheet){
 
                 print_r($sheet->toArray());
@@ -100,14 +101,17 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        $employee_training = Employee::find($id);
-//        dd($employee_training->trainings()->sync($id));
-//        foreach($employee_training->trainings as $employee){
-//            dd($employee->firstname);
-//        }
         $employee = Employee::find($id);
 
-        return view('employee.show', compact('employee'));
+        $employee_training = DB::table('employee_training')
+            ->join('employee', 'employee_training.emp_id', '=', 'employee.emp_id')
+            ->join('training', 'employee_training.t_id', '=', 'training.t_id')
+            ->where('employee.emp_id', '=', $id)
+//            ->select('users.*', 'contacts.phone', 'orders.price')
+            ->get();
+
+
+        return view('employee.show', ['employee_training'=>$employee_training, 'employee'=>$employee]);
     }
 
     /**
