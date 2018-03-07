@@ -12,7 +12,12 @@ class Employee extends Authenticatable
 
     protected $table = 'employee';
     protected $primaryKey = 'emp_id';
-    protected $fillable = ['firstname','middlename','lastname','password','username','image','remember_token','role','address','position','birthdate'];
+    protected $fillable = ['firstname','middlename','lastname','password','username','image','role','address','position','birthdate'];
+
+    protected function logs()
+    {
+        return $this->hasMany(EmployeeLog::class, 'emp_id');
+    }
 
     protected function trainings()
     {

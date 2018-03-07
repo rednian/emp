@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Excel;
 use App\Employee;
+use App\EmployeeLog;
 use App\EmployeeTraining;
 use App\Training;
 use Illuminate\Http\Request;
@@ -49,14 +50,22 @@ class EmployeeController extends Controller
     public function  upload(Request $request)
     {
 
+//        dd($request->all());
         $this->validate($request, [
             'log' => 'required|file',
+            'date'=>'required'
         ]);
+
+        $date = explode('-',$request->date);
+        $request['start_date'] = date('Y-m-d',strtotime($date[0]));
+        $request['end_date'] = date('Y-m-d',strtotime($date[1]));
+
+        $employee_log = EmployeeLog::create($request->all());
 
         $collection = Excel::load($request->file('log'), function($reader) {})->all()->toArray();
 
         foreach ($collection as $row){
-           print_r($row[2]);
+//           print_r($row[2]);
         }
     }
 
@@ -78,12 +87,16 @@ class EmployeeController extends Controller
             'firstname'=>'required|min:3|max:255',
             'middlename'=>'nullable|min:3|max:255',
             'lastname'=>'required|min:3|max:255',
+            'position'=>'nullable|min:3|max:255',
+            'address'=>'nullable|min:3|max:255',
+            'birthdate'=>'nullable|min:3|max:255',
+            'role'=>'required'
         ]);
 
 
         $fname = substr($data['firstname'],0,2);
 
-        $data['username'] = $fname.$data['lastname'];
+        $data['username'] = $data['lastname'].'_'.$fname;
         $data['password'] = Hash::make($data['username']);
         $data['image'] = 'default/user.png';;
 
@@ -102,7 +115,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        $employee = Employee::find($id);
+        $employee = Employee::find($id)->with('logs');
 
         $employee_training = DB::table('employee_training')
             ->join('employee', 'employee_training.emp_id', '=', 'employee.emp_id')

@@ -30,6 +30,7 @@
 
                                         <ul class="list-unstyled profile-nav">
                                             <li>
+                                                {{dd($employee)}}
                                                 <img src="{{ asset('/storage/'.$image = empty($employee->image) ? 'default/user.png' : $employee->image)}}" class="img-responsive img-thumbnail" alt="">
                                                 <a href="javascript:;" class="profile-edit">
                                                     edit </a>

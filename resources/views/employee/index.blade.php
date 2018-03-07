@@ -16,7 +16,7 @@
         <div class="col-md-12">
 
             <section class="row">
-                <div class="col-sm-10">
+                <div class="col-sm-12">
                     <section class="portlet light">
                         <div class="portlet-title">
                             <section class="caption">
@@ -42,11 +42,9 @@
                                             <td>{{$i+1}}</td>
                                             <td>{{ucwords($employee->firstname).' '.ucwords($employee->middlename).' '.ucwords($employee->lastname)}}</td>
                                             <td>{{strtolower($employee->username)}}</td>
-                                            <td class="col-xs-3">
-                                                <a href="{{$employee->emp_id}}" data-toggle="modal" id="btn-training" data-target="#modal-employee-training" class="btn btn-link"><span
-                                                            class="icon-plus"></span> training</a>
-                                                <a href="{{$employee->emp_id}}" data-toggle="modal" id="btn-log" data-target="#modal-employee-log" class="btn btn-link"><span
-                                                            class="icon-plus"></span> logs</a>
+                                            <td>
+                                                <a href="{{$employee->emp_id}}" data-toggle="modal" id="btn-training" data-target="#modal-employee-training" class="btn btn-link">training</a>
+                                                <a href="{{$employee->emp_id}}" data-toggle="modal" id="btn-log" data-target="#modal-employee-log" class="btn btn-link">logs</a>
                                                 <a href="{{route('employee.show',$employee)}}" class="btn btn-link"><span class="icon-folder-open"></span></a>
 
                                                 <form action="{{route('employee.destroy',$employee)}}" method="post" style="display: inline;">
@@ -81,13 +79,14 @@
                     <form action="{{route('employee.upload')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group">
-                            <label for="" class="control-label col-sm-4">Log Date <code>*</code></label>
+                            <input name="emp_id" id="log-emp-id" type="hidden"/>
+                            <label for="" class="control-label col-sm-4">Log Date <span class="required">*</span></label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="date">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="control-label col-sm-4">Logs <code>*</code></label>
+                            <label for="" class="control-label col-sm-4">Logs <span class="required">*</span></label>
                             <div class="col-sm-8">
                                 <input type="file" class="form-control" name="log">
                             </div>
@@ -96,7 +95,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Upload Logs</button>
+                    <button type="submit" class="btn green">Upload Logs</button>
                     </form>
                 </div>
             </div><!-- /.modal-content -->
@@ -134,7 +133,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn green">Save Trainings</button>
                 </form>
              </div>
     </div>
@@ -154,33 +153,46 @@
     <script>
         $(document).ready(function(){
 
-
             $('table#table-employee').DataTable();
 
-            $("#modal-employee-training").on('show.bs.modal', function () {
-                var emp_id = $('a#btn-training').attr('href');
-                $('input[type="hidden"]#frm-emp-id').val(emp_id);
-
-            });
-
-            $("#modal-employee-training").on('hide.bs.modal', function () {
-                $('input[type="hidden"]#frm-emp-id').val('');
-
-            });
-
-            $('select#training').select2({
-                allowClear: true
-            });
+            training();
+            logs();
 
             $('input[name="date"]').daterangepicker({
                 "autoApply": true,
 //                "startDate": "02/20/2018",
 //                "endDate": "02/26/2018"
             }, function(start, end, label) {
-                console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+                // console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
             });
 
         });
+        
+        function logs() {
+            $('#modal-employee-log').on('show.bs.modal', function () {
+                var emp_id = $('a#btn-log').attr('href');
+                $('input[type="hidden"]#log-emp-id').val(emp_id);
+            });
+
+            $("#modal-employee-log").on('hide.bs.modal', function () {
+                $('input[type="hidden"]#frm-emp-id').val('');
+            });
+        }
+        
+        function training() {
+
+            $('select#training').select2({allowClear: true});
+
+            $('#modal-employee-training').on('show.bs.modal', function () {
+                var emp_id = $('a#btn-training').attr('href');
+                $('input[type="hidden"]#frm-emp-id').val(emp_id);
+            });
+
+            $("#modal-employee-training").on('hide.bs.modal', function () {
+                $('input[type="hidden"]#frm-emp-id').val('');
+            });
+
+        }
     </script>
 @endsection
 
